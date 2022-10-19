@@ -7,15 +7,28 @@
 #include <string.h>
 #include <stdlib.h>
 
+void finder(int *counter, char *first, char *second);
+
 int
 main(int argc, char *argv[])
 {
-int count = 0; //Count to store the amount of times it finds the character match
-for (int i = 0; i < strlen(argv[2]); ++i){
-    if (argv[1][0] == argv[2][i]){
-        ++count; //If the character is found increase count by 1
-    }
-}
+int count = 0;
+int *pcount = &count;
+
+char first = argv[1][0];
+char *pfirst = &first;
+
+char *psecond = argv[2];
+
+finder(pcount, pfirst, psecond);
 printf("%d\n", count);
 return 0;
+}
+
+void finder(int *counter, char *first, char *second){
+    for (int i = 0; i < strlen(second); ++i){
+        if (*first == second[i]){
+            (*counter)++;
+        }
+    }
 }
