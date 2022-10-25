@@ -7,6 +7,10 @@
 
 typedef struct Countries Countries;
 
+void instanceMaker(int argc, char *argv[], int *total, Countries *countries); //Function that adds info from the commandline to a collection of instances
+
+void display(int *total, Countries *countries); // Function that prints the table
+
 struct Countries
 {
     char name[30];
@@ -15,25 +19,38 @@ struct Countries
     int size;
 };
 
-int main(int argc, char *argv[]){
-    Countries countries[50];
+int main(int argc, char *argv[])
+{
     int elc = 0;
-    for (int i = 1; i < argc - 1; i += 4){
+    int *pelc = &elc;
+    Countries countries[50];
+    Countries *pcountries = countries;
+
+
+    instanceMaker(argc, argv, pelc, pcountries);
+    display(pelc, pcountries);
+return 0;
+}
+
+void instanceMaker(int argc, char *argv[], int *total, Countries *countries)
+{
+    for (int i = 1; i < argc - 1; i += 4)
+    {
         Countries c;
         strcpy(c.name, argv[i]);
         strcpy(c.capital, argv[i + 1]);
         c.size = atoi(argv[i + 3]);
         c.population = atof(argv[i + 2]);
-        countries[elc] = c;
-        elc++;
+        countries[*total] = c;
+        (*total)++;
     }
+}
 
+void display(int *total, Countries *countries)
+{
     printf("Country\t\t\tCapital\t\t\tSize\t\t\tPopulation\n");
-    for (int i = 0; i < elc; i++)
+    for (int i = 0; i < *total; i++)
     {
         printf("%s\t\t\t%s\t\t\t%d\t\t\t%.2f\n", countries[i].name, countries[i].capital, countries[i].size, countries[i].population);
     }
-
-
-return 0;
 }
