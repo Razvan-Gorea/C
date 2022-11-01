@@ -9,6 +9,7 @@
 
 typedef struct Countries Countries;
 
+//Function Prototypes
 void instanceMaker(int argc, char *argv[], int *total, Countries *countries); //Function that adds info from the commandline to a collection of instances
 void checker(int *total, int *passed, Countries *valids, Countries *countries);
 void display(int *total, Countries *valids);
@@ -22,24 +23,26 @@ struct Countries
 };
 
 int main(int argc, char *argv[]){
+    //Counter variables
     int elc = 0;
     int to_be_printed = 0;
     int *pelc = &elc;
     int *pto_be_printed = &to_be_printed;
-   
-   
+
+    //Instances of the type 'Countries'
     Countries countries[50];
     Countries valids[50];
     Countries *pcountries = countries;
     Countries *pvalids = valids;
 
-
+    //Function calls
     instanceMaker(argc, argv, pelc, pcountries);
     checker(pelc, pto_be_printed, pvalids, pcountries);
     display(pto_be_printed, pvalids);
 
 return 0;
 }
+
 
 void instanceMaker(int argc, char *argv[], int *total, Countries *countries)
 {
@@ -55,6 +58,7 @@ void instanceMaker(int argc, char *argv[], int *total, Countries *countries)
     }
 }
 
+//Function that checks every size member of every country instance to see if it's less than 100000, making it valid if true
 void checker(int *total, int *passed, Countries *valids, Countries *countries){
     for (int i = 0; i < *total; ++i){
         if (countries[i].size < 100000){
@@ -64,6 +68,7 @@ void checker(int *total, int *passed, Countries *valids, Countries *countries){
     }
 }
 
+//Function that prints the array containing the countries the have a size of less than 100000km2
 void display(int *total, Countries *valids){
     if (*total > 0){
         printf("Country\t\t\tCapital\t\t\tSize\t\t\tPopulation\n");
