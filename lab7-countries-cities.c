@@ -13,7 +13,6 @@ typedef struct City3 City3;
 typedef struct Country Country;
 
 void instanceMaker(int argc, char *argv[], int *total, Country *countries);
-void display(int *total, Country *countries);
 
 struct City1{
     char name[30];
@@ -42,10 +41,11 @@ int main(int argc, char *argv[]){
     int elc = 0;
     int *pelc = &elc;
     Country countries[50];
+    Country highest[50];
     Country *pcountries = countries;
+    Country *phighest = highest;
 
     instanceMaker(argc, argv, pelc, pcountries);
-    display(pelc, pcountries);
 return 0;
 }
 
@@ -62,12 +62,5 @@ void instanceMaker(int argc, char *argv[], int *total, Country *country){
         strcpy(c.city3.size, argv[i + 6]);
         country[*total] = c;
         (*total)++;
-    }
-}
-
-void display(int *total, Country *countries){
-    for (int i = 0; i < *total; i++)
-    {
-        printf("%s: %s\n", countries[i].name, countries[i].city1.name);
     }
 }
